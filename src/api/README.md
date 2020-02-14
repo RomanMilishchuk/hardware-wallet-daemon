@@ -249,7 +249,7 @@ Args:
 
 **Example**:
 ```bash
-$ curl  -i -X PUT -H "Content-Type: multipart/form-data"  -F "file=@/Users/therealssj/go/src/github.com/skycoin/hardware-wallet/tiny-firmware/skyfirmware.bin" http://127.0.0.1:9510/api/v1/firmware_update
+$ curl  -i -X PUT -H "Content-Type: multipart/form-data"  -F "file=@/Users/therealssj/go/src/github.com/SkycoinProject/hardware-wallet/tiny-firmware/skyfirmware.bin" http://127.0.0.1:9510/api/v1/firmware_update
 ```
 
 ### Recover Wallet

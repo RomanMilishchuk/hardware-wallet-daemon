@@ -14,14 +14,14 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/skycoin/hardware-wallet-daemon/src/api"
+	"github.com/SkycoinProject/hardware-wallet-daemon/src/api"
 
 	"github.com/andreyvit/diff"
 	"github.com/stretchr/testify/require"
 
-	"github.com/skycoin/hardware-wallet-daemon/src/client"
-	"github.com/skycoin/hardware-wallet-daemon/src/client/operations"
-	"github.com/skycoin/hardware-wallet-daemon/src/models"
+	"github.com/SkycoinProject/hardware-wallet-daemon/src/client"
+	"github.com/SkycoinProject/hardware-wallet-daemon/src/client/operations"
+	"github.com/SkycoinProject/hardware-wallet-daemon/src/models"
 )
 
 const (
