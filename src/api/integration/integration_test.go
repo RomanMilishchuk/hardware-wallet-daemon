@@ -384,7 +384,7 @@ func TestGenerateAddresses(t *testing.T) {
 
 	params := operations.NewPostGenerateAddressesParams()
 	params.GenerateAddressesRequest = &models.GenerateAddressesRequest{
-		AddressN:       newInt64Ptr(2),
+		Addressn:       newInt64Ptr(2),
 		ConfirmAddress: false,
 		StartIndex:     0,
 	}

@@ -10,22 +10,22 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// TransactionSignResponse transaction sign response
+// HTTPSuccessResponse HTTP success response
 //
-// swagger:model TransactionSignResponse
-type TransactionSignResponse struct {
+// swagger:model HTTPSuccessResponse
+type HTTPSuccessResponse struct {
 
 	// data
 	Data []string `json:"data"`
 }
 
-// Validate validates this transaction sign response
-func (m *TransactionSignResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this HTTP success response
+func (m *HTTPSuccessResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *TransactionSignResponse) MarshalBinary() ([]byte, error) {
+func (m *HTTPSuccessResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +33,8 @@ func (m *TransactionSignResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TransactionSignResponse) UnmarshalBinary(b []byte) error {
-	var res TransactionSignResponse
+func (m *HTTPSuccessResponse) UnmarshalBinary(b []byte) error {
+	var res HTTPSuccessResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
