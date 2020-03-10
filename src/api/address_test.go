@@ -85,6 +85,7 @@ func TestGenerateAddresses(t *testing.T) {
 			status:      http.StatusUnprocessableEntity,
 			httpBody: toJSON(t, &GenerateAddressesRequest{
 				AddressN: -2,
+				CoinType: "SKY",
 			}),
 			httpResponse: NewHTTPErrorResponse(http.StatusUnprocessableEntity, "address_n cannot be negative"),
 		},
@@ -97,8 +98,22 @@ func TestGenerateAddresses(t *testing.T) {
 			httpBody: toJSON(t, &GenerateAddressesRequest{
 				AddressN:   2,
 				StartIndex: -2,
+				CoinType:   "SKY",
 			}),
 			httpResponse: NewHTTPErrorResponse(http.StatusUnprocessableEntity, "start_index cannot be negative"),
+		},
+
+		{
+			name:        "422 - Non existing coin type",
+			method:      http.MethodPost,
+			contentType: ContentTypeJSON,
+			status:      http.StatusUnprocessableEntity,
+			httpBody: toJSON(t, &GenerateAddressesRequest{
+				AddressN:   2,
+				StartIndex: 0,
+				CoinType:   "AAA",
+			}),
+			httpResponse: NewHTTPErrorResponse(http.StatusUnprocessableEntity, "currently unsupported coin"),
 		},
 
 		{
@@ -109,6 +124,7 @@ func TestGenerateAddresses(t *testing.T) {
 			httpBody: toJSON(t, &GenerateAddressesRequest{
 				AddressN:   2,
 				StartIndex: 0,
+				CoinType:   "SKY",
 			}),
 			gatewayAddressGenResult: wire.Message{
 				Kind: uint16(messages.MessageType_MessageType_Failure),
@@ -125,6 +141,7 @@ func TestGenerateAddresses(t *testing.T) {
 			httpBody: toJSON(t, &GenerateAddressesRequest{
 				AddressN:   2,
 				StartIndex: 0,
+				CoinType:   "SKY",
 			}),
 			gatewayAddressGenResult: wire.Message{
 				Kind: uint16(messages.MessageType_MessageType_ResponseSkycoinAddress),
@@ -143,8 +160,9 @@ func TestGenerateAddresses(t *testing.T) {
 
 			var body GenerateAddressesRequest
 			err := json.Unmarshal([]byte(tc.httpBody), &body)
+			coinType, err := skyWallet.CoinTypeFromString(body.CoinType)
 			if err == nil {
-				gateway.On("AddressGen", uint32(body.AddressN), uint32(body.StartIndex), body.ConfirmAddress, skyWallet.SkycoinCoinType).Return(tc.gatewayAddressGenResult, nil)
+				gateway.On("AddressGen", uint32(body.AddressN), uint32(body.StartIndex), body.ConfirmAddress, coinType).Return(tc.gatewayAddressGenResult, nil)
 			}
 
 			req, err := http.NewRequest(tc.method, "/api/v1"+endpoint, strings.NewReader(tc.httpBody))
