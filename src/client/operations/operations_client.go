@@ -39,6 +39,8 @@ type ClientService interface {
 
 	PostBackup(params *PostBackupParams, authInfo runtime.ClientAuthInfoWriter) (*PostBackupOK, error)
 
+	PostBitcoinTransactionSign(params *PostBitcoinTransactionSignParams, authInfo runtime.ClientAuthInfoWriter) (*PostBitcoinTransactionSignOK, error)
+
 	PostCheckMessageSignature(params *PostCheckMessageSignatureParams, authInfo runtime.ClientAuthInfoWriter) (*PostCheckMessageSignatureOK, error)
 
 	PostConfigurePinCode(params *PostConfigurePinCodeParams, authInfo runtime.ClientAuthInfoWriter) (*PostConfigurePinCodeOK, error)
@@ -304,6 +306,40 @@ func (a *Client) PostBackup(params *PostBackupParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*PostBackupDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  PostBitcoinTransactionSign Sign a Bitcoin transaction with the hardware wallet.
+*/
+func (a *Client) PostBitcoinTransactionSign(params *PostBitcoinTransactionSignParams, authInfo runtime.ClientAuthInfoWriter) (*PostBitcoinTransactionSignOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostBitcoinTransactionSignParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostBitcoinTransactionSign",
+		Method:             "POST",
+		PathPattern:        "/bitcoin_transaction_sign",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostBitcoinTransactionSignReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostBitcoinTransactionSignOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostBitcoinTransactionSignDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -682,7 +718,7 @@ func (a *Client) PostSignMessage(params *PostSignMessageParams, authInfo runtime
 }
 
 /*
-  PostTransactionSign Sign a transaction with the hardware wallet.
+  PostTransactionSign Sign a Skycoin transaction with the hardware wallet.
 */
 func (a *Client) PostTransactionSign(params *PostTransactionSignParams, authInfo runtime.ClientAuthInfoWriter) (*PostTransactionSignOK, error) {
 	// TODO: Validate the params before sending
