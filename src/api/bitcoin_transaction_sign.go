@@ -4,12 +4,15 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"net/http"
+
 	skyWallet "github.com/SkycoinProject/hardware-wallet-go/src/skywallet"
 	messages "github.com/SkycoinProject/hardware-wallet-protob/go"
+
 	"github.com/SkycoinProject/skycoin/src/util/droplet"
 	"github.com/gogo/protobuf/proto"
-	"net/http"
 )
+
 // BitcoinTransactionSignRequest is request data for /api/v1/bitcoin_transaction_sign
 type BitcoinTransactionSignRequest struct {
 	TransactionInputs  []BitcoinTransactionInput  `json:"transaction_inputs"`
@@ -18,8 +21,8 @@ type BitcoinTransactionSignRequest struct {
 
 // BitcoinTransactionInput is a Bitcoin transaction input
 type BitcoinTransactionInput struct {
-	Index     uint32 `json:"index"`
-	PrevHash  string  `json:"prev_hash"`
+	Index    uint32 `json:"index"`
+	PrevHash string `json:"prev_hash"`
 }
 
 // BitcoinTransactionOutput is a Bitcoin transaction output

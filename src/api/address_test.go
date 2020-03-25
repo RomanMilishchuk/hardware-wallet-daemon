@@ -2,14 +2,15 @@ package api
 
 import (
 	"encoding/json"
-	skyWallet "github.com/SkycoinProject/hardware-wallet-go/src/skywallet"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 
-	"github.com/SkycoinProject/hardware-wallet-go/src/skywallet/wire"
+	skyWallet "github.com/SkycoinProject/hardware-wallet-go/src/skywallet"
 	messages "github.com/SkycoinProject/hardware-wallet-protob/go"
+
+	"github.com/SkycoinProject/hardware-wallet-go/src/skywallet/wire"
 	"github.com/stretchr/testify/require"
 )
 
@@ -160,9 +161,11 @@ func TestGenerateAddresses(t *testing.T) {
 
 			var body GenerateAddressesRequest
 			err := json.Unmarshal([]byte(tc.httpBody), &body)
-			coinType, err := skyWallet.CoinTypeFromString(body.CoinType)
 			if err == nil {
-				gateway.On("AddressGen", uint32(body.AddressN), uint32(body.StartIndex), body.ConfirmAddress, coinType).Return(tc.gatewayAddressGenResult, nil)
+				coinType, err := skyWallet.CoinTypeFromString(body.CoinType)
+				if err == nil {
+					gateway.On("AddressGen", uint32(body.AddressN), uint32(body.StartIndex), body.ConfirmAddress, coinType).Return(tc.gatewayAddressGenResult, nil)
+				}
 			}
 
 			req, err := http.NewRequest(tc.method, "/api/v1"+endpoint, strings.NewReader(tc.httpBody))
