@@ -238,7 +238,7 @@ func TestGenerateMnemonic(t *testing.T) {
 
 	buttonResp, err := daemonClient.Operations.PostIntermediateButton(nil, addCSRFHeader(t, daemonClient))
 	require.NoError(t, err)
-	require.Equal(t, "Device wiped", buttonResp.Payload.Data[0])
+	require.Equal(t, "User data was wiped from the device", buttonResp.Payload.Data[0])
 
 	mnemonicParams := operations.NewPostGenerateMnemonicParams()
 	mnemonicParams.GenerateMnemonicRequest = &models.GenerateMnemonicRequest{
@@ -266,7 +266,7 @@ func TestRecovery(t *testing.T) {
 
 	buttonResp, err := daemonClient.Operations.PostIntermediateButton(nil, addCSRFHeader(t, daemonClient))
 	require.NoError(t, err)
-	require.Equal(t, "Device wiped", buttonResp.Payload.Data[0])
+	require.Equal(t, "User data was wiped from the device", buttonResp.Payload.Data[0])
 
 	params := operations.NewPostRecoveryParams()
 	params.RecoveryRequest = &models.RecoveryRequest{
@@ -372,7 +372,7 @@ func TestWipe(t *testing.T) {
 
 	buttonResp, err := daemonClient.Operations.PostIntermediateButton(nil, addCSRFHeader(t, daemonClient))
 	require.NoError(t, err)
-	require.Equal(t, "Device wiped", buttonResp.Payload.Data[0])
+	require.Equal(t, "User data was wiped from the device", buttonResp.Payload.Data[0])
 }
 
 func TestGenerateAddresses(t *testing.T) {
@@ -497,7 +497,7 @@ func bootstrap(t *testing.T) {
 
 		buttonResp, err := daemonClient.Operations.PostIntermediateButton(nil, addCSRFHeader(t, daemonClient))
 		require.NoError(t, err)
-		require.Equal(t, "Device wiped", buttonResp.Payload.Data[0])
+		require.Equal(t, "User data was wiped from the device", buttonResp.Payload.Data[0])
 
 		// set mnemonic
 		mnemonic := "cloud flower upset remain green metal below cup stem infant art thank"
