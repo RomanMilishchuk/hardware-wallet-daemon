@@ -11,7 +11,7 @@ matrix:
   include:
     - os: linux
       env:
-        - PIP='sudo pip'
+        - PIP='sudo pip3'
       dist: xenial
     - os: osx
       if: type != pull_request
