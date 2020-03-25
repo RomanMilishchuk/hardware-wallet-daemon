@@ -49,6 +49,10 @@
   branch = "develop"
 
 [[constraint]]
+  name = "github.com/SkycoinProject/hardware-wallet-protob"
+  branch = "develop"
+
+[[constraint]]
   name = "github.com/andreyvit/diff"
   branch = "master"
 
