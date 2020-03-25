@@ -509,6 +509,9 @@ definitions:
       confirm_address:
         type: boolean
         example: false
+      coin_type:
+        type: string
+        example: "SKY"
 
   ApplySettingsRequest:
     type: object

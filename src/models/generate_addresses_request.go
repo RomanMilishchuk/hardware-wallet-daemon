@@ -21,6 +21,9 @@ type GenerateAddressesRequest struct {
 	// Required: true
 	Addressn *int64 `json:"address_n"`
 
+	// coin type
+	CoinType string `json:"coin_type,omitempty"`
+
 	// confirm address
 	ConfirmAddress bool `json:"confirm_address,omitempty"`
 

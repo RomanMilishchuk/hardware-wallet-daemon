@@ -387,6 +387,7 @@ func TestGenerateAddresses(t *testing.T) {
 		Addressn:       newInt64Ptr(2),
 		ConfirmAddress: false,
 		StartIndex:     0,
+		CoinType:       "SKY",
 	}
 
 	resp, err := daemonClient.Operations.PostGenerateAddresses(params, addCSRFHeader(t, daemonClient))
