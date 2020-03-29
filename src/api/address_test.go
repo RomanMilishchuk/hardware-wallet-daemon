@@ -2,13 +2,13 @@ package api
 
 import (
 	"encoding/json"
-	skyWallet "github.com/SkycoinProject/hardware-wallet-go/src/skywallet"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 
+	skyWallet "github.com/SkycoinProject/hardware-wallet-go/src/skywallet"
 	messages "github.com/SkycoinProject/hardware-wallet-protob/go"
 
 	"github.com/SkycoinProject/hardware-wallet-go/src/skywallet/wire"
