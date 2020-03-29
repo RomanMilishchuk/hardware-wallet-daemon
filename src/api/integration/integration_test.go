@@ -448,18 +448,8 @@ func TestTransactionSign(t *testing.T) {
 
 	resp, err := daemonClient.Operations.PostTransactionSign(params, addCSRFHeader(t, daemonClient))
 	require.NoError(t, err)
-	require.Equal(t, resp.Payload.Data[0], "ButtonRequest")
 
-	var signature string
-	for {
-		buttonResp, err := daemonClient.Operations.PostIntermediateButton(nil, addCSRFHeader(t, daemonClient))
-		require.NoError(t, err)
-		if buttonResp.Payload.Data[0] != "ButtonRequest" {
-			require.Len(t, buttonResp.Payload.Data, 1)
-			signature = buttonResp.Payload.Data[0]
-			break
-		}
-	}
+	signature := resp.Payload.Data[0]
 
 	// verify the message signature
 	fmt.Println(signature)
