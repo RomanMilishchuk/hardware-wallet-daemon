@@ -9,6 +9,11 @@ type MockTransactionSigner struct {
 	mock.Mock
 }
 
+// SetDevice provides a mock function with given fields: _a0
+func (_m *MockTransactionSigner) SetDevice(_a0 *Device) {
+	_m.Called(_a0)
+}
+
 // Sign provides a mock function with given fields:
 func (_m *MockTransactionSigner) Sign() ([]string, error) {
 	ret := _m.Called()
